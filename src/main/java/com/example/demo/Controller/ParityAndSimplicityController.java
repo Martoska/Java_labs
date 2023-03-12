@@ -1,10 +1,14 @@
 package com.example.demo.Controller;
 
-import com.example.demo.core.dtos.CharacterOfNumber;
+import com.example.demo.core.dtos.CharacterOfNumberDTO;
 import com.example.demo.core.dtos.SourceAndResulDTO;
 import com.example.demo.service.ParityAndSimplicityService;
+import jakarta.validation.constraints.DecimalMax;
+import jakarta.validation.constraints.Digits;
+import jakarta.validation.constraints.Max;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.format.annotation.NumberFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,7 +23,7 @@ public class ParityAndSimplicityController {
         this.service = service;
     }
     @GetMapping("/task")
-    public CharacterOfNumber task(@RequestParam int param1) {
+    public CharacterOfNumberDTO task(@RequestParam int param1) {
         logger.info("Enter in method task");
         return service.countResult(param1);
     }

@@ -1,10 +1,10 @@
 package com.example.demo.core.dtos;
 
-public class CharacterOfNumber {
+public class CharacterOfNumberDTO {
     private boolean IsPrime;
     private boolean IsEven;
 
-    public CharacterOfNumber(boolean isPrime, boolean isEven) {
+    public CharacterOfNumberDTO(boolean isPrime, boolean isEven) {
         IsPrime = isPrime;
         IsEven = isEven;
     }

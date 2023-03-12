@@ -3,7 +3,7 @@ package com.example.demo.service;
 import com.example.demo.core.dtos.SourceAndResulDTO;
 import com.example.demo.core.dtos.StatisticDTO;
 import com.example.demo.dl.api.IStorage;
-import com.example.demo.core.dtos.CharacterOfNumber;
+import com.example.demo.core.dtos.CharacterOfNumberDTO;
 import com.example.demo.dl.api.IStorageRepository;
 import com.example.demo.dl.entites.SourceAndResultEntity;
 import org.springframework.stereotype.Service;
@@ -43,9 +43,9 @@ public class ParityAndSimplicityService {
         return true;
     }
 
-    public CharacterOfNumber countResult(int value) {
+    public CharacterOfNumberDTO countResult(int value) {
         counter.increment();
-        CharacterOfNumber characterOfNumber = new CharacterOfNumber(isPrime(value), isEven(value));
+        CharacterOfNumberDTO characterOfNumber = new CharacterOfNumberDTO(isPrime(value), isEven(value));
         CompletableFuture.runAsync(()->storage.save(value, characterOfNumber));
 
         SourceAndResultEntity entity = new SourceAndResultEntity(
@@ -67,12 +67,12 @@ public class ParityAndSimplicityService {
         return repository.findAll()
                 .stream()
                 .map(entity -> new SourceAndResulDTO(entity.getValue(),
-                        new CharacterOfNumber(entity.isEven(), entity.isPrime())))
+                        new CharacterOfNumberDTO(entity.isEven(), entity.isPrime())))
                 .toList();
     }
 
     public StatisticDTO saveAll(List<Integer> list){
-        Map<Integer, CharacterOfNumber> map = new HashMap<>();
+        Map<Integer, CharacterOfNumberDTO> map = new HashMap<>();
         list.forEach(integer -> map.put(integer, countResult(integer)));
 
         CompletableFuture.runAsync(()->storage.saveAll(map));
